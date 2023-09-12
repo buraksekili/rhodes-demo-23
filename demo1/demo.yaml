@@ -1,0 +1,31 @@
+# This manifest includes ApiDefinition and SecurityPolicy that is linked to the ApiDefinition.
+apiVersion: tyk.tyk.io/v1alpha1
+kind: ApiDefinition
+metadata:
+  name: httpbin
+spec:
+  name: httpbin-api-rhodes
+  protocol: http
+  active: true
+  proxy:
+    target_url: http://httpbin.org
+    listen_path: /httpbin
+    strip_listen_path: true
+---
+apiVersion: tyk.tyk.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: httpbin
+spec:
+  name: Some other Security Policy
+  state: active
+  active: true
+  access_rights_array:
+    - name: httpbin
+      namespace: default
+      versions:
+        - Default
+  partitions:
+    quota: true
+    rate_limit: true
+    acl: true

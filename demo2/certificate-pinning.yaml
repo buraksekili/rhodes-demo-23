@@ -1,0 +1,24 @@
+apiVersion: tyk.tyk.io/v1alpha1
+kind: ApiDefinition
+metadata:
+  name: httpbin-certificate-pinning
+spec:
+  name: httpbin - Certificate Pinning
+  use_keyless: true
+  protocol: http
+  active: true
+  # Instead of `pinned_public_keys`, we use `pinned_public_keys_ref`. So, Operator
+  # will fetch the referenced secret, which is `httpbin-secret`, upload it to Tyk, set the ID
+  # of it for `*` domains.
+  pinned_public_keys_refs:
+    "*": httpbin-secret
+  proxy:
+    target_url: https://httpbin.org
+    listen_path: /pinning
+    strip_listen_path: true
+  version_data:
+    default_version: Default
+    not_versioned: true
+    versions:
+      Default:
+        name: Default
