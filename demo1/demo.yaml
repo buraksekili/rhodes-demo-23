@@ -17,7 +17,7 @@ kind: SecurityPolicy
 metadata:
   name: httpbin
 spec:
-  name: Some other Security Policy
+  name: httpbin-api-rhodes-security-policy
   state: active
   active: true
   access_rights_array:
